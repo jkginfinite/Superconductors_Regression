@@ -33,7 +33,7 @@ The approach was to first identify the irrelevant features and discard them, fol
 A <a href='https://en.wikipedia.org/wiki/Superconductivity'>superconductor</a> is a material that, at a very, very low temperature allows for infinite conductivity (zero electrical resistance). Essentialy this means thats all the electrons/ions will flow on a material without any disturbance what so ever. One of the most interesting things about superconductors is that at their critical temperature they can create magnetic levitation! This is called the <a href='https://en.wikipedia.org/wiki/Meissner_effect'>Meissner effect</a>. Lexus, the car company, used this phenomenon to create a <a href='https://www.cnet.com/roadshow/news/the-lexus-hoverboard-is-real-video/'>hoverboard</a>.
 
 <p align="center">
-<img src = 'images/lexus-hoverboard.jpg' height=30% width=30%>
+<img src = 'https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/lexus-hoverboard.jpg' height=30% width=30%>
 </p>
 
 <a href='https://en.wikipedia.org/wiki/Phase_transition'>**Superconducting temperature**</a>
@@ -54,7 +54,7 @@ In any regression problem, you want the target variable to be as close to a norm
 
 Originally the data was very, very positively skewed. After a lot of trial and error, I used an exponential transformation to get the data (approximately) normal.
 <p align="center">
-<img src = 'images/Critical_temp_hist.png'>
+<img src = 'https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/Critical_temp_hist.png'>
 </p>
 Unfortunately in the best fit there remained a slight skew. The highest peak wasn't simply an outlier and couldn't be dropped or imputed. Despite this, the results observed at the end were pretty good.
 
@@ -138,7 +138,7 @@ At each iteration the seven models were fit on a 70-30 train test split. The R2 
 Graphing the evaluation metrics of each model as a function of the number of features used, we have;
 
 <p align="center">
-<img src='images/Model_Comparison.png'>
+<img src='https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/Model_Comparison.png'>
 </p>
 The best performance metrics by each model were *(without tuning hyperparameters)*;
 
@@ -163,7 +163,7 @@ Because the main goal is to get the most accurate conclusions about superconduct
 The hyperparameter that was tuned was the number of decision trees in the random forest. To do this,I again used a trial and error approach where I cycled through a range of forest sizes. In conjunction, I also tried using different 'max feature' parameters, specifically `log2`, `sqrt` and the default.
 
 <p align="center">
-<img src='images/fitting_rf.png'>
+<img src='https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/fitting_rf.png'>
 </p>
 
 After lots of trial and error, a RMSE of ±9.396Kelvin was found, before tuning it was ±10.3Kelvin.
@@ -177,7 +177,7 @@ As in any regression analysis, R2 score and RMSE are not the only standards of e
 The plot of the predicted temperatures versus actual temperature was
 
 <p align="center">
-<img src='images/predict_vs_test.png' heigh=30% width=30%>
+<img src='https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/predict_vs_test.png' heigh=30% width=30%>
 </p>
 
 **Normality of errors & Homoskedascity**
@@ -185,7 +185,7 @@ The plot of the predicted temperatures versus actual temperature was
 Using seaborn's `distplot` and `probplot` functions, I could plot the distribution of errors as well as their Q-Q plots (for both the train sets and the test sets). Approximately normality was observed.
 
 <p align="center">
-<img src='images/train_test_errors.png' heigh=70% width=70%>
+<img src='https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/train_test_errors.png' heigh=70% width=70%>
 </p>
 
 ### Feature Importance
@@ -195,7 +195,7 @@ Using seaborn's `distplot` and `probplot` functions, I could plot the distributi
 One of the more convenient things about the random forest package is it does feature importance analysis automatically. Here, we can see the relative importances of each measure.
 
 <p align="center">
-<img src='images/rf_feature_importances.png' heigh=100% width=100%>
+<img src='https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/rf_feature_importances.png' heigh=100% width=100%>
 </p>
 
 ### Conclusions
@@ -208,12 +208,12 @@ One of the more convenient things about the random forest package is it does fea
 
 <div id='codelinks'></div>
 
-* <a href='#pre-processing'>Pre-processing the target variable</a>
-* <a href='#filtering'>Filtering out irrelevant features</a>
-* <a href='#model_selection'>Selecting the right model</a>
-* <a href='#tuning_Random_forest.ipynb'>Tuning Random Forest</a>
-* <a href='#prediction_errors.ipynb'>Analyzing prediction errors</a>
-* <a href='#prediction_errors.ipynb'>Identifying important features</a>
+* <a href='https://github.com/JoeGanser/Superconductors_Regression/blob/master/coded_notebooks/Normalize_Target.ipynb'>Pre-processing the target variable</a>
+* <a href='https://github.com/JoeGanser/Superconductors_Regression/blob/master/coded_notebooks/Feature_Filtration.ipynb'>Filtering out irrelevant features</a>
+* <a href='https://github.com/JoeGanser/Superconductors_Regression/blob/master/coded_notebooks/Model_Comparison_fitted_target.ipynb'>Selecting the right model</a>
+* <a href='https://github.com/JoeGanser/Superconductors_Regression/blob/master/coded_notebooks/Tuning_Random_Forest.ipynb'>Tuning Random Forest</a>
+* <a href='https://github.com/JoeGanser/Superconductors_Regression/blob/master/coded_notebooks/prediction_errors.ipynb'>Analyzing prediction errors</a>
+* <a href='https://github.com/JoeGanser/Superconductors_Regression/blob/master/coded_notebooks/prediction_errors.ipynb'>Identifying important features</a>
 
 ### Sources
 
