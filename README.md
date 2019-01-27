@@ -3,7 +3,7 @@
 By Joe Ganser
 
 ### ABSTRACT
-Data on superconductors was studied with the goal of predicting the critical temperature at which a material undergoes superconductivity; hence a regession task. The data initially consisted of 168 features and 21,263 rows. The goal was not to predict whether or not a material was superconductive, because all data was on superconductive materials. <a href='https://www.sciencedirect.com/science/article/pii/S0927025618304877?via%3Dihub'>Another researcher</a> had gotten a root mean squared error (RMSE) of ±9.5kelvin on this data set, and this project's goal was to out perform this metric while comparing model techniques and analyzing features. This study was able to get ±9.4Kelvin RMSE. <a href="https://archive.ics.uci.edu/ml/datasets/Superconductivty+Data#">The data came from the UCI Machine learning repository</a>. This paper is oriented towards an audience of scientists, and was coded in `python 3.6`.
+Data on superconductors was studied with the goal of predicting the critical temperature at which a material undergoes superconductivity; hence a regession task. The data initially consisted of 168 features and 21,263 rows. The goal was not to predict whether or not a material was superconductive, because all data was on superconductive materials. <a href='https://www.sciencedirect.com/science/article/pii/S0927025618304877?via%3Dihub'>Another researcher</a> had gotten a root mean squared error (RMSE) of ±9.5kelvin on this data set, and this project's goal was to out perform this metric while comparing model techniques and analyzing features. This study was able to get ±9.4Kelvin RMSE. The data is originally sourced from the <a href='https://supercon.nims.go.jp/index_en.html'>superconducting material database</a>. This paper is oriented towards an audience of scientists, and was coded in `python 3.6`.
 
 ### PROJECT OUTLINE
 * Introduction
@@ -27,13 +27,14 @@ There were several objectives to this project
 
 The approach was to first identify the irrelevant features and discard them, followed by putting the remaining features into a bunch of models for wide comparison.
 
+<div id='background'></div>
+
 ### What is a superconductor? 
 
-<div id='background'></div>
 A <a href='https://en.wikipedia.org/wiki/Superconductivity'>superconductor</a> is a material that, at a very, very low temperature allows for infinite conductivity (zero electrical resistance). Essentialy this means thats all the electrons/ions will flow on a material without any disturbance what so ever. One of the most interesting things about superconductors is that at their critical temperature they can create magnetic levitation! This is called the <a href='https://en.wikipedia.org/wiki/Meissner_effect'>Meissner effect</a>. Lexus, the car company, used this phenomenon to create a <a href='https://www.cnet.com/roadshow/news/the-lexus-hoverboard-is-real-video/'>hoverboard</a>.
 
 <p align="center">
-<img src = 'https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/lexus-hoverboard.jpg' height=30% width=30%>
+<img src = 'https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/lexus-hoverboard.jpg' height='30%' width='30%'>
 </p>
 
 <a href='https://en.wikipedia.org/wiki/Phase_transition'>**Superconducting temperature**</a>
@@ -46,9 +47,9 @@ The physics of a super conductor is (sort of) like the *opposite* of a toaster. 
 
 There are many materials that can support superconductivity. Each one is a combination of many different elements, and has many intrinsic properties. Thus by creating a table for each super conductor's properties, along with it's critical temperature, a regression analysis can be done.
 
-### Preprocessing the target variable: critical temperature
-
 <div id='pre-processing'></div>
+
+### Preprocessing the target variable: critical temperature
 
 In any regression problem, you want the target variable to be as close to a normal distribution as possible. Sometimes this is possible to do, other times not. In this case I was able to transform the critical temperature to be approximately normal.
 
@@ -58,9 +59,9 @@ Originally the data was very, very positively skewed. After a lot of trial and e
 </p>
 Unfortunately in the best fit there remained a slight skew. The highest peak wasn't simply an outlier and couldn't be dropped or imputed. Despite this, the results observed at the end were pretty good.
 
-### Filtering out irrelevant features
-
 <div id='filtering'></div>
+
+### Filtering out irrelevant features
 
 Initially the data shape was 21263 rows by 168 features. The head of the original dataframe looked like this;
 
@@ -92,9 +93,10 @@ number_of_elements|mean_atomic_mass|range_atomic_mass|wtd_range_atomic_mass|mean
 4.0|88.9444675|122.90607|33.7680099285714|775.425|1010.54428571429|0.7832066603612908|810.6|739.575|160.25|46.11428571428571|4654.35725|8958.571|81.8375|111.970357142857|127.05|81.0975|6.9055|12.878|107.75664499999999|60.97947428571429|7.06248773046785|0.257045108326848|399.97342000000003|1.0|1.1|22.0|4.0|0.0|0.0|1.0|0.0|0.0|0.15|0.0|0.0
 4.0|88.9444675|122.90607|27.8487427142857|775.425|1009.7171428571401|0.8052296408133571|810.6|728.8071428571429|160.25|36.514285714285705|4654.35725|8958.571|81.8375|111.24071428571399|127.05|80.76642857142859|6.9055|12.878|107.75664499999999|61.0866171428571|7.06248773046785|0.272819938850094|399.97342000000003|1.0|1.05714285714286|23.0|4.0|0.0|0.0|1.0|0.0|0.0|0.3|0.0|0.0
 
+<div id='model_selection'></div>
+
 ### Selecting the right model
 
-<div id='model_selection'></div>
 Seven different types of regression were performed on the data, with the intention of simply estimating the performance of each one without tuning hyperparameters. The metrics of evaluation for each one were the R2 score and the root mean squared error (RMSE). I also measured the time required for each model to fit and predict the data. After all the models and metrics were observed, the best performing one was then selected hyperparameter tuning.
 
 * Ordinary Least Squares
@@ -154,9 +156,9 @@ Lasso|23.5355|0.5227|27|0.0145
 
 Thus, the best performing model (Random Forest regressor) was then fine tuned with it's hyperparameters.
 
-### Random Forest: Tuning hyperparameters
-
 <div id='rf'></div>
+
+### Random Forest: Tuning hyperparameters
 
 Because the main goal is to get the most accurate conclusions about superconductors, accuracy, in this context, is more important than efficiency. Hence, despite random forest regressor being the slowest model to fit the data (over 1 second), it was chosen to be the most important because it had the lowest loss function.
 
@@ -168,16 +170,16 @@ The hyperparameter that was tuned was the number of decision trees in the random
 
 After lots of trial and error, a RMSE of ±9.396Kelvin was found, before tuning it was ±10.3Kelvin.
 
-### Checking for a good fit
-
 <div id='fitting'></div>
+
+### Checking for a good fit
 
 As in any regression analysis, R2 score and RMSE are not the only standards of evaluation. Examining the plot of the predicted values versus actual values is important, as is looking for normality and homoskedascity.
 
 The plot of the predicted temperatures versus actual temperature was
 
 <p align="center">
-<img src='https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/predict_vs_test.png' heigh=30% width=30%>
+<img src='https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/predict_vs_test.png' height='30%' width='30%'>
 </p>
 
 **Normality of errors & Homoskedascity**
@@ -185,28 +187,27 @@ The plot of the predicted temperatures versus actual temperature was
 Using seaborn's `distplot` and `probplot` functions, I could plot the distribution of errors as well as their Q-Q plots (for both the train sets and the test sets). Approximately normality was observed.
 
 <p align="center">
-<img src='https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/train_test_errors.png' heigh=70% width=70%>
-</p>
-
-### Feature Importance
+<img src='https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/train_test_errors.png' height='70%' width='70%'></p>
 
 <div id='feature_importance'></div>
+
+### Feature Importance
 
 One of the more convenient things about the random forest package is it does feature importance analysis automatically. Here, we can see the relative importances of each measure.
 
 <p align="center">
-<img src='https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/rf_feature_importances.png' heigh=100% width=100%>
+<img src='https://raw.githubusercontent.com/JoeGanser/Superconductors_Regression/master/images/rf_feature_importances.png'>
 </p>
-
-### Conclusions
 
 <div id='conclusions'></div>
 
+### Conclusions
+
 <a href='https://www.sciencedirect.com/science/article/pii/S0927025618304877?via%3Dihub'>The other researchers</a> that analyzed this data concluded that the important features extracted were ones based on thermal conductivity, atomic radius, valence, electron affinity, and atomic mass. In the graph above we can the same results, with a few extra important features such as the presence of Copper, Oxygen, Barium, the number of elements in the material, et. al. Perhaps it is these few extras I observed that allowed me to get a RMSE of 9.4Kelvin, which is lower than the other research's RMSE of 9.5Kelvin.
 
-### Links to coded notebooks
-
 <div id='codelinks'></div>
+
+### Links to coded notebooks
 
 * <a href='https://github.com/JoeGanser/Superconductors_Regression/blob/master/coded_notebooks/Normalize_Target.ipynb'>Pre-processing the target variable</a>
 * <a href='https://github.com/JoeGanser/Superconductors_Regression/blob/master/coded_notebooks/Feature_Filtration.ipynb'>Filtering out irrelevant features</a>
@@ -215,10 +216,13 @@ One of the more convenient things about the random forest package is it does fea
 * <a href='https://github.com/JoeGanser/Superconductors_Regression/blob/master/coded_notebooks/prediction_errors.ipynb'>Analyzing prediction errors</a>
 * <a href='https://github.com/JoeGanser/Superconductors_Regression/blob/master/coded_notebooks/prediction_errors.ipynb'>Identifying important features</a>
 
-### Sources
-
 <div id='sources'></div>
+
+### Sources/Links
 
 * <a href='https://www.sciencedirect.com/science/article/pii/S0927025618304877?via%3Dihub'>A data-driven statistical model for predicting the critical temperature of a superconductor, by Kam Hamidieh</a>
     * This was the other research I wanted to compare to.
 * <a href ="https://archive.ics.uci.edu/ml/datasets/Superconductivty+Data#">UCI Machine learning repository on superconducting data</a>
+    * The data can be downloaded from here.
+* <a href ="https://supercon.nims.go.jp/index_en.html">Super conducting material database</a>
+    * From the National Institute of Material Science; the organization that collected the data
